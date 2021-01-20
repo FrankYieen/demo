@@ -63,7 +63,7 @@
 
 
       .main-div{
-          font-size: 17px;
+          font-size: 13px;
           border-bottom: 1px solid black;
           box-sizing: border-box;
           padding-top: 10px;
@@ -76,15 +76,25 @@
       .main-div>span{
           display: inline-block;
       }
+
       .sum{
           display: inline-block;
           width: 10%;
           margin-left: 1%;
           height: 25px;
       }
+
       #text{
           width: 4%;
           margin-right: 1%
+      }
+
+      #disclaimer{
+          position: fixed;
+          width: 1.5%;
+          height: 3%;
+          bottom: 0.2%;
+          right: 0px;
       }
   </style>
 </head>
@@ -119,6 +129,7 @@
       <span class="main-div-dex">{{yongsum}}</span>
     </div>
   </div>
+  <button id="disclaimer" type="button">!</button>
 </div>
 <script>
   var all = new Vue({
@@ -133,7 +144,13 @@
     },
     methods: {
       add: function () {
-        let temp = this.texts.split(" ");
+        let s = this.texts.split(/ |  /);
+        let temp = s.filter(function (x) {
+          if (x == "") {
+            return false;
+          }
+          return true;
+        });
         if (temp.length % 4 == 0) {
           this.sumshow = true;
           for (let i = 0; i < temp.length / 4; i++) {
@@ -146,9 +163,8 @@
             this.RMBsum += parseInt(temp[i * 4 + 2]);
             this.yongsum += parseInt(temp[i * 4 + 3]);
           }
-        }
-        else{
-          return  alert('注意输入的格式!(空格的位置)');
+        } else {
+          return alert('注意输入的格式!(空格的位置)');
         }
       },
     },
